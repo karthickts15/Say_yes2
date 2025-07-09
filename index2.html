@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secret Link Unlocker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #0a11cd, #fad0c4);
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 80px;
+      color: #fff;
+    }
+
+    .fade-slide {
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: fadeSlide 1s ease forwards;
+    }
+
+    .fade-slide:nth-child(1) { animation-delay: 0.2s; }
+    .fade-slide:nth-child(2) { animation-delay: 0.8s; }
+
+    @keyframes fadeSlide {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      margin: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    .yes {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .no {
+      background-color: #f44336;
+      color: white;
+      position: absolute;
+      transition: all 0.3s ease;
+    }
+
+    .container {
+      position: relative;
+      height: 300px;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: floatUp 2s ease-out forwards;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-150px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    #secret-link {
+      display: none;
+      margin-top: 40px;
+      font-size: 20px;
+    }
+
+    #secret-link a {
+      color: #fff;
+      text-decoration: none;
+      background: #673ab7;
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    #secret-link a:hover {
+      background: #9575cd;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>
+    <div class="fade-slide"></div>Are you an Idiot?</div>
+    <div class="fade-slide">Be honest, I can Give Some Gifts for free</div>
+  </h1>
+
+  <div class="container">
+    <button class="btn yes" onclick="showSecret()">Yes</button>
+    <button class="btn no" id="noBtn">No</button>
+  </div>
+
+  <div id="secret-link">
+    🔓 You unlocked it! 👉 <a href="https://images.pexels.com/photos/3178266/pexels-photo-3178266.jpeg" target="_blank">Click Me</a>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const container = document.querySelector('.container');
+
+    noBtn.addEventListener('mouseover', () => {
+      const maxX = container.offsetWidth - noBtn.offsetWidth;
+      const maxY = container.offsetHeight - noBtn.offsetHeight;
+
+      const newX = Math.random() * maxX;
+      const newY = Math.random() * maxY;
+
+      noBtn.style.left = newX + "px";
+      noBtn.style.top = newY + "px";
+    });
+
+    function showSecret() {
+      const h1 = document.querySelector("h1");
+      h1.innerHTML = `
+        <div class="fade-slide">Awww! I know You will Click Yes</div>
+        <div class="fade-slide">Here’s your surprise 👇</div>
+      `;
+
+      document.getElementById('secret-link').style.display = 'block';
+
+      // Floating hearts
+      for (let i = 0; i < 20; i++) {
+        createHeart();
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = '😌';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = '80%';
+      heart.style.fontSize = (16 + Math.random() * 20) + 'px';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
